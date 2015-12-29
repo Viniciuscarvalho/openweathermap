@@ -11,18 +11,16 @@ import android.view.ViewGroup;
 import com.br.openweatherabacomm.R;
 
 
-public class PlaceFragment extends Fragment {
+public class DetailsPlaces extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PlaceFragment() {
+    public DetailsPlaces() {
     }
 
-
-    public static PlaceFragment newInstance() {
-        PlaceFragment fragment = new PlaceFragment();
+    public static DetailsPlaces newInstance(String param1, String param2) {
+        DetailsPlaces fragment = new DetailsPlaces();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -38,7 +36,7 @@ public class PlaceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_place, container, false);
+        return inflater.inflate(R.layout.details_places, container, false);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -46,6 +44,7 @@ public class PlaceFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);

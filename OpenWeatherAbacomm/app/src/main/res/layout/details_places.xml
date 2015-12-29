@@ -1,0 +1,175 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.br.openweatherabacomm.fragments.DetailsPlaces">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/detailsToolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:navigationIcon="@mipmap/ic_action_navigation_arrow_back"
+        android:background="@color/colorPrimary"
+        app:titleTextAppearance="@style/AppTheme.Toolbar">
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/marcasLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/detailsToolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:id="@+id/linearLayout">
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Fortaleza"
+            android:textSize="30sp"
+            android:textColor="@color/White"
+            android:id="@+id/detailsNameCity"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 29,0 ºC"
+            android:textSize="45sp"
+            android:textColor="@color/White"
+            android:layout_alignBottom="@+id/linearLayout"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/marcasLayout2"
+        android:layout_below="@+id/marcasLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/White">
+
+            <TextView
+                android:id="@+id/detailsTypeNuvem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nuvens Esparsas"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                android:layout_margin="8dp" />
+            <TextView
+                android:id="@+id/detailsHumidity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailsTypeNuvem"
+                android:text="Umidade"
+                android:textSize="18sp"
+                android:layout_margin="8dp" />
+            <TextView
+                android:id="@+id/valueHumidity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="51%"
+                android:textSize="18sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="300dp"
+                android:layout_alignLeft="@+id/detailsHumidity"
+                android:layout_alignStart="@+id/detailsHumidity"
+                android:layout_alignTop="@+id/detailsHumidity" />
+            <TextView
+                android:id="@+id/detailsPreassure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pressão"
+                android:textSize="18sp"
+                android:layout_below="@+id/detailsHumidity"
+                android:layout_margin="8dp" />
+            <TextView
+                android:id="@+id/valuePreassure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1003,34 Pa"
+                android:textSize="18sp"
+                android:layout_alignTop="@+id/detailsPreassure"
+                android:layout_alignBottom="@+id/detailsPreassure"
+                android:layout_alignLeft="@+id/valueHumidity"
+                android:layout_alignStart="@+id/valueHumidity" />
+            <TextView
+                android:id="@+id/detailsWind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vento"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@id/detailsPreassure"
+                android:layout_margin="8dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#6666"
+                android:layout_below="@id/detailsWind" />
+            <TextView
+                android:id="@+id/detailsDirection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Direção"
+                android:textSize="18sp"
+                android:layout_below="@id/detailsWind"
+                android:layout_margin="8dp"/>
+            <TextView
+                android:id="@+id/valueDirection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="150,00º"
+                android:textSize="18sp"
+                android:layout_alignTop="@+id/detailsDirection"
+                android:layout_alignBottom="@+id/detailsDirection"
+                android:layout_alignLeft="@+id/valueHumidity"
+                android:layout_alignStart="@+id/valueHumidity" />
+            <TextView
+                android:id="@+id/detailsVelocity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Velocidade"
+                android:textSize="18sp"
+                android:layout_margin="8dp"
+                android:layout_below="@id/detailsDirection"/>
+            <TextView
+                android:id="@+id/valueVelocity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="150,0Nós"
+                android:textSize="16sp"
+                android:layout_alignBottom="@+id/detailsVelocity"
+                android:layout_alignLeft="@+id/valueDirection"
+                android:layout_alignStart="@+id/valueDirection" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#6666"
+                android:layout_below="@id/detailsVelocity" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
