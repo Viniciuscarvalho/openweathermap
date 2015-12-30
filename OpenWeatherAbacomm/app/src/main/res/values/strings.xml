@@ -1,16 +1,13 @@
 <resources>
     <string name="app_name">Open Weather</string>
     <string name="app_id">539499042872525</string>
+    <string name="web_services">api.openweathermap.org/data/2.5</string>
 
     <string name="description_login_background">Login background image</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
     <string name="title_activity_login">Open Weather</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
