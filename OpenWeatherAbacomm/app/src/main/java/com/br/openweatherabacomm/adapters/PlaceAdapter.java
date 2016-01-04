@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.br.openweatherabacomm.R;
-import com.br.openweatherabacomm.parcelables.Places;
+import com.br.openweatherabacomm.parcelables.PlacesData;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     private Context mContext;
     private View.OnClickListener mListener;
-    private ArrayList<Places> mPlaces = new ArrayList<>();
+    private ArrayList<PlacesData> mPlaces = new ArrayList<>();
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView mPlacesImage;
@@ -40,7 +40,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     }
 
     public PlaceAdapter(Context context, View.OnClickListener listener,
-                        ArrayList<Places> places) {
+                        ArrayList<PlacesData> places) {
         mContext = context;
         mListener = listener;
         mPlaces = places;
@@ -55,7 +55,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Places places = mPlaces.get(position);
+        PlacesData places = mPlaces.get(position);
 
         Picasso.with(mContext)
                 .load(mContext.getString(R.string.web_services) + "/weather" + "/icon")

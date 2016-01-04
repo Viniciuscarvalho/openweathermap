@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Open Weather</string>
     <string name="app_id">539499042872525</string>
-    <string name="web_services">api.openweathermap.org/data/2.5</string>
+    <string name="web_services">http://api.openweathermap.org/data/2.5</string>
 
     <string name="description_login_background">Login background image</string>
 
