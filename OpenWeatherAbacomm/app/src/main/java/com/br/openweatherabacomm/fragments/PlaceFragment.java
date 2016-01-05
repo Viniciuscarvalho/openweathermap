@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.br.openweatherabacomm.R;
@@ -32,9 +33,9 @@ import retrofit.Retrofit;
 public class PlaceFragment extends Fragment {
 
     private static final String ARG_PLACES = "places";
-    static  final String WEATHER_URL="http://api.openweathermap.org";
 
     private RecyclerView mRecyclerView;
+    private Button mButton;
     private PlaceAdapter mAdapter;
     private PlacesData placesData;
     private ArrayList<PlacesData> mPlaces = new ArrayList<>();
@@ -71,6 +72,17 @@ public class PlaceFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        //Adicionar nova cidade via mapa
+        mButton = (Button) view.findViewById(R.id.action_add);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
 
         refreshList();
         return view;

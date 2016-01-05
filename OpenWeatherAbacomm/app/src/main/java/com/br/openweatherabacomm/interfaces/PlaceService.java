@@ -7,12 +7,13 @@ import java.util.List;
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by viniciuscarvalho on 30/12/15.
  */
 public interface PlaceService {
-    @GET("/data/2.5/group")
+    @GET("group/{id}")
         Call<List<PlacesData>> listPlaces(@Path("id") int id);
 
 }
