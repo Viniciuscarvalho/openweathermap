@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.br.openweatherabacomm.R;
+import com.br.openweatherabacomm.activities.AddCityActivity;
 import com.br.openweatherabacomm.adapters.PlaceAdapter;
 import com.br.openweatherabacomm.interfaces.PlaceService;
 import com.br.openweatherabacomm.parcelables.PlacesData;
@@ -73,16 +74,14 @@ public class PlaceFragment extends Fragment {
                 LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        //Adicionar nova cidade via mapa
+        //Adicionar nova cidade
         mButton = (Button) view.findViewById(R.id.action_add);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new AddCityActivity(mPlaces);
             }
         });
-
-
 
         refreshList();
         return view;

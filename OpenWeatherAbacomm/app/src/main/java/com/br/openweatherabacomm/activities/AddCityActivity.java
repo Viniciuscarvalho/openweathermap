@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -17,13 +18,20 @@ import com.google.android.gms.maps.model.LatLng;
 
 import com.br.openweatherabacomm.R;
 
+import java.util.ArrayList;
+
 public class AddCityActivity extends AppCompatActivity {
 
     private static final String ARGS = "args";
     private static final String ARG_LAT_LNG = "latLng";
+    private static final String ARG_PLACES = "places";
 
-    private PlacesData mPlace;
+    private ArrayList<PlacesData> mPlaces = new ArrayList<>();
     private LatLng mLatLng;
+
+    public AddCityActivity(ArrayList<PlacesData> mPlaces) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +57,10 @@ public class AddCityActivity extends AppCompatActivity {
                 if(mLatLng != null) {
                     Bundle args = new Bundle();
                     args.putParcelable(ARG_LAT_LNG, mLatLng);
+                    args.getParcelableArray(ARG_PLACES);
 
                     Intent intent = new Intent();
-                    intent.putExtra(ARGS, args);
+                    intent.getBundleExtra(ARGS);
                     setResult(RESULT_OK, intent);
                     onBackPressed();
                 } else {
@@ -73,10 +82,16 @@ public class AddCityActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceFragment.newInstance(mPlace))
+                .replace(R.id.container, PlaceFragment.newInstance((Parcelable) mPlaces))
                 .commit();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelable(ARG_LAT_LNG, mLatLng);
+        savedInstanceState.putParcelableArrayList(ARG_PLACES, mPlaces);
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
 
 }
