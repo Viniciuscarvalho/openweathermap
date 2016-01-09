@@ -2,57 +2,53 @@ package com.br.openweatherabacomm.fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.br.openweatherabacomm.BuildConfig;
 import com.br.openweatherabacomm.R;
-import com.br.openweatherabacomm.activities.AddCityActivity;
+import com.br.openweatherabacomm.activities.AddPlaceActivity;
 import com.br.openweatherabacomm.adapters.PlaceAdapter;
 import com.br.openweatherabacomm.interfaces.PlaceService;
-import com.br.openweatherabacomm.parcelables.PlacesData;
+import com.br.openweatherabacomm.parcelables.PlaceParcelable;
+import com.br.openweatherabacomm.utils.WeatherListData;
+import com.google.android.gms.location.places.Place;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import retrofit.Call;
-import retrofit.Callback;
 import retrofit.GsonConverterFactory;
-import retrofit.Response;
 import retrofit.Retrofit;
 
 
 public class PlaceFragment extends Fragment {
 
     private static final String ARG_PLACES = "places";
+    SearchView searchView;
 
     private RecyclerView mRecyclerView;
     private Button mButton;
     private PlaceAdapter mAdapter;
-    private PlacesData placesData;
-    private ArrayList<PlacesData> mPlaces = new ArrayList<>();
+    private WeatherListData weatherListData;
+    private ArrayList<PlaceParcelable> mPlaces = new ArrayList<>();
 
-    private OnPlacesFragmentInteractionListener mListener;
+    private PlaceInteractionListener mPlaceListener;
 
     public PlaceFragment() {
     }
 
-
-    public static PlaceFragment newInstance(Parcelable places) {
-        PlaceFragment fragment = new PlaceFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_PLACES, places);
-        fragment.setArguments(args);
-        return fragment;
+    public static PlaceFragment newInstance() {
+        return new PlaceFragment();
     }
 
     @Override
@@ -74,55 +70,110 @@ public class PlaceFragment extends Fragment {
                 LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        //Swipe para remover cidade
+        /*
+        ItemTouchHelper.SimpleCallback SwipeListener = new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
+                reject(viewHolder);
+            }
+        };
+        ItemTouchHelper swipeListener = new ItemTouchHelper(SwipeListener);
+        swipeListener.attachToRecyclerView(mRecyclerView); */
+
         //Adicionar nova cidade
         mButton = (Button) view.findViewById(R.id.action_add);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AddCityActivity(mPlaces);
+                new AddPlaceActivity(mPlaces);
             }
         });
 
         refreshList();
+
         return view;
     }
 
-    private void refreshList() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.web_services))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    public void updatePlacesList() {
+        String filter = "";
 
-        PlaceService service = retrofit.create(PlaceService.class);
-        Call<List<PlacesData>> placesCall = service.listPlaces(placesData.getId());
-        placesCall.enqueue(new Callback<List<PlacesData>>() {
-            @Override
-            public void onResponse(Response<List<PlacesData>> response, Retrofit retrofit) {
-                mPlaces.clear();
-                for (PlacesData placesData : response.body()) {
-                    mPlaces.add(placesData);
-                }
-            }
+        if (searchView != null) {
+            filter = searchView.getQuery().toString();
+        }
 
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
+        updatePlacesList(PlaceParcelable.filterByCity(filter));
     }
 
+    private void updatePlacesList(List<PlaceParcelable> placeList) {
+        if (placeList.size() > 0) {
+            mRecyclerView.setAdapter(new PlaceAdapter(placeList));
+        } else {
+            mRecyclerView.setAdapter(null);
 
-    public void onClick(View view) {
-        //TODO IMPLEMENTAR FUNÇÃO DE DELETAR DA LISTA
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
         }
     }
 
-    public interface OnPlacesFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+    /*
+    private void reject(RecyclerView.ViewHolder viewHolder) {
+        final int position = viewHolder.getAdapterPosition();
+        final PlaceParcelable cityRemoved = mPlaces.get(position);
+
+        mPlaces.delete();
+        mAdapter.notifyItemRemoved(position);
+
+
+        Snackbar snackbar = Snackbar.make(mRecyclerView, "Cidade removida", Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Desfazer", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        snackbar.setActionTextColor(getActivity().getResources().getColor(R.color.Accent));
+        snackbar.show();
+    } */
+
+    private void refreshList() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.web_services))
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .build();
+
+
+//        PlaceService service = retrofit.create(PlaceService.class);
+//        Call<List<WeatherListData>> placesCall = service.listPlaces();
+//        placesCall.enqueue(new Callback<List<WeatherListData>>() {
+//            @Override
+//            public void onResponse(Response<List<WeatherListData>> response, Retrofit retrofit) {
+//                mPlaces.clear();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//
+//            }
+//        });
     }
+
+
+    public void onButtonPressed(Uri uri) {
+        if (mPlaceListener != null) {
+            mPlaceListener.PlaceFragmentInteraction(uri);
+        }
+    }
+
+    public interface PlaceInteractionListener {
+        void PlaceFragmentInteraction(Uri uri);
+    }
+
 }

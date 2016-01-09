@@ -17,13 +17,19 @@
     </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
-        android:id="@+id/marcasLayout1"
+        android:id="@+id/detailsWeather"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:background="@color/colorPrimary"
         android:layout_below="@+id/detailsToolbar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/imgWeather"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,6 +58,7 @@
             android:layout_margin="16dp" />
 
         <TextView
+            android:id="@+id/valueTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" 29,0 ºC"
@@ -64,8 +71,8 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/marcasLayout2"
-        android:layout_below="@+id/marcasLayout1"
+        android:id="@+id/detailsWeather2"
+        android:layout_below="@+id/detailsWeather"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White">
@@ -98,7 +105,7 @@
                 android:layout_alignStart="@+id/detailsHumidity"
                 android:layout_alignTop="@+id/detailsHumidity" />
             <TextView
-                android:id="@+id/detailsPreassure"
+                android:id="@+id/detailsPressure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Pressão"
@@ -106,13 +113,13 @@
                 android:layout_below="@+id/detailsHumidity"
                 android:layout_margin="8dp" />
             <TextView
-                android:id="@+id/valuePreassure"
+                android:id="@+id/valuePressure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="1003,34 Pa"
                 android:textSize="18sp"
-                android:layout_alignTop="@+id/detailsPreassure"
-                android:layout_alignBottom="@+id/detailsPreassure"
+                android:layout_alignTop="@+id/detailsPressure"
+                android:layout_alignBottom="@+id/detailsPressure"
                 android:layout_alignLeft="@+id/valueHumidity"
                 android:layout_alignStart="@+id/valueHumidity" />
             <TextView
@@ -122,7 +129,7 @@
                 android:text="Vento"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_below="@id/detailsPreassure"
+                android:layout_below="@id/detailsPressure"
                 android:layout_margin="8dp"/>
             <View
                 android:layout_width="match_parent"

@@ -12,4 +12,10 @@
     <string name="title_activity_login">Open Weather</string>
     <string name="title_activity_add_city">Adicionar cidade</string>
 
+    <string name="humidity">Humidity</string>
+    <string name="pressure">Pressure</string>
+    <string name="places">Places</string>
+    <string name="direction">Direction</string>
+    <string name="wind">Wind</string>
+    <string name="weather">Weather</string>
 </resources>

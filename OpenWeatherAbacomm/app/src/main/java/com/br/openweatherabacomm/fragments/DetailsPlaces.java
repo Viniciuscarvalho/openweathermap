@@ -1,6 +1,5 @@
 package com.br.openweatherabacomm.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,7 +35,7 @@ public class DetailsPlaces extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.details_places, container, false);
+        return inflater.inflate(R.layout.details_weather, container, false);
     }
 
     public void onButtonPressed(Uri uri) {

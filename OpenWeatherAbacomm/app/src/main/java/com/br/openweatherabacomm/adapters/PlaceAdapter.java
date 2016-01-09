@@ -9,10 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.br.openweatherabacomm.R;
-import com.br.openweatherabacomm.parcelables.PlacesData;
+import com.br.openweatherabacomm.parcelables.PlaceParcelable;
+import com.br.openweatherabacomm.utils.WeatherListData;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by viniciuscarvalho on 26/12/15.
@@ -21,7 +24,15 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     private Context mContext;
     private View.OnClickListener mListener;
-    private ArrayList<PlacesData> mPlaces = new ArrayList<>();
+    private ArrayList<PlaceParcelable> mPlaces = new ArrayList<>();
+
+    public PlaceAdapter(List<PlaceParcelable> placeList) {
+
+    }
+
+    public Object getItem(int position) {
+        return mPlaces.get(position);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView mPlacesImage;
@@ -40,10 +51,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     }
 
     public PlaceAdapter(Context context, View.OnClickListener listener,
-                        ArrayList<PlacesData> places) {
+                        ArrayList<PlaceParcelable> placesList) {
         mContext = context;
         mListener = listener;
-        mPlaces = places;
+        mPlaces = placesList;
     }
 
     @Override
@@ -56,16 +67,16 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        PlacesData places = mPlaces.get(position);
+        PlaceParcelable placesList = (PlaceParcelable) getItem(position);
 
         Picasso.with(mContext)
                 .load(mContext.getString(R.string.web_services) + "/weather" + "/icon")
                 .placeholder(R.drawable.ic_menu_gallery)
                 .into(holder.mPlacesImage);
 
-        holder.mPlacesName.setText(places.getName());
-        holder.mPlacesTemperature.setText(places.getTemperature());
-        holder.mPlacesConditions.setText(places.getConditions());
+        holder.mPlacesName.setText(placesList.getCity() + ", " + placesList.getCountry());
+        holder.mPlacesTemperature.setText(String.format(Locale.getDefault(), "%.1fº", placesList.getWeather().getTemperature()));
+        holder.mPlacesConditions.setText(placesList.getWeather().getDescription());
 
     }
 

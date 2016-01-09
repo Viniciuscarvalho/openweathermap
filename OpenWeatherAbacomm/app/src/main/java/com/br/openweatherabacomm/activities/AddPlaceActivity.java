@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,23 +12,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.br.openweatherabacomm.fragments.PlaceFragment;
-import com.br.openweatherabacomm.parcelables.PlacesData;
+import com.br.openweatherabacomm.parcelables.PlaceParcelable;
+import com.br.openweatherabacomm.utils.WeatherListData;
 import com.google.android.gms.maps.model.LatLng;
 
 import com.br.openweatherabacomm.R;
 
 import java.util.ArrayList;
 
-public class AddCityActivity extends AppCompatActivity {
+public class AddPlaceActivity extends AppCompatActivity {
 
     private static final String ARGS = "args";
     private static final String ARG_LAT_LNG = "latLng";
     private static final String ARG_PLACES = "places";
 
-    private ArrayList<PlacesData> mPlaces = new ArrayList<>();
+    private ArrayList<PlaceParcelable> mPlaces = new ArrayList<>();
     private LatLng mLatLng;
 
-    public AddCityActivity(ArrayList<PlacesData> mPlaces) {
+    public AddPlaceActivity(ArrayList<PlaceParcelable> mPlaces) {
 
     }
 
@@ -64,7 +64,7 @@ public class AddCityActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
                     onBackPressed();
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AddCityActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddPlaceActivity.this);
                     builder.setMessage("O campo de busca está vazio.");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -82,14 +82,13 @@ public class AddCityActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceFragment.newInstance((Parcelable) mPlaces))
+                .replace(R.id.container, PlaceFragment.newInstance())
                 .commit();
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putParcelable(ARG_LAT_LNG, mLatLng);
-        savedInstanceState.putParcelableArrayList(ARG_PLACES, mPlaces);
         super.onSaveInstanceState(savedInstanceState);
     }
 

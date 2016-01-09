@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="ListCity">true</bool>
+    <fraction name="wind_coefficient">1%</fraction>
+</resources>
