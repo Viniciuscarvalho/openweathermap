@@ -4,14 +4,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.br.openweatherabacomm.R;
-import com.br.openweatherabacomm.adapters.PlacesPageAdapter;
+import com.br.openweatherabacomm.adapters.TabsAdapter;
 import com.br.openweatherabacomm.fragments.PlaceFragment;
+import com.br.openweatherabacomm.fragments.TabsFragment;
 import com.br.openweatherabacomm.fragments.WeatherFragment;
 import com.br.openweatherabacomm.parcelables.PlaceParcelable;
 import com.br.openweatherabacomm.parcelables.WeatherParcelable;
@@ -23,16 +25,22 @@ public class MainActivity extends AppCompatActivity
 
     private PlaceFragment placesFragment;
     private WeatherFragment weatherFragment;
-    private PlacesPageAdapter pagerAdapter;
+    private TabsAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        loadView();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, TabsFragment.newInstance())
+                .commit();
+
+        //loadView();
 
     }
 
@@ -40,15 +48,14 @@ public class MainActivity extends AppCompatActivity
         if (ListCity()) {
             loadListCities();
         }
-
     }
 
     private void loadListCities() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, PlaceFragment.newInstance())
+                .replace(R.id.fragment_container, PlaceFragment.newInstance())
                 .commit();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, WeatherFragment.newInstance())
+                .replace(R.id.fragment_container, WeatherFragment.newInstance())
                 .commit();
     }
 

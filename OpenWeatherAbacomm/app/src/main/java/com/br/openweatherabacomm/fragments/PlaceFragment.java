@@ -70,15 +70,6 @@ public class PlaceFragment extends Fragment {
                 LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        //Adicionar nova cidade
-        mButton = (Button) view.findViewById(R.id.action_add);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AddPlaceActivity(mPlaces);
-            }
-        });
-
         refreshList();
 
         return view;

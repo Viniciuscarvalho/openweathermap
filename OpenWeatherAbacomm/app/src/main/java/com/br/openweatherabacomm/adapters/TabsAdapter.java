@@ -5,28 +5,35 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.br.openweatherabacomm.BD.WeatherApplication;
-import com.br.openweatherabacomm.R;
 import com.br.openweatherabacomm.fragments.PlaceFragment;
 import com.br.openweatherabacomm.fragments.WeatherFragment;
 import com.br.openweatherabacomm.parcelables.PlaceParcelable;
 
 /**
- * Created by viniciuscarvalho on 07/01/16.
+ * Created by viniciuscarvalho on 10/01/16.
  */
-public class PlacesPageAdapter extends FragmentPagerAdapter{
+public class TabsAdapter extends FragmentPagerAdapter{
+
+    private static final int PLACES = 0;
+    private static final int WEATHER = 1;
 
     private PlaceFragment placesFragment;
     private WeatherFragment weatherFragment;
 
-    public PlacesPageAdapter(FragmentManager fm) {
-        super(fm);
+    public TabsAdapter(FragmentManager fragmentManager) {
+        super(fragmentManager);
+
     }
 
     @Override
-    public Fragment getItem(int position) {
-        return (position == 0) ? PlaceFragment.newInstance()
-                : WeatherFragment.newInstance();
+    public Fragment getItem (int position) {
+        switch (position) {
+            case PLACES:
+                return PlaceFragment.newInstance();
+            case WEATHER:
+                return WeatherFragment.newInstance();
+        }
+        return null;
     }
 
     @Override
@@ -34,10 +41,16 @@ public class PlacesPageAdapter extends FragmentPagerAdapter{
         return 2;
     }
 
+
     @Override
-    public CharSequence getPageTitle(int position) {
-        return (position == 0) ? WeatherApplication.getInstance().getString(R.string.places)
-                : WeatherApplication.getInstance().getString(R.string.weather);
+    public CharSequence getPageTitle (int position) {
+        switch (position) {
+            case PLACES:
+                return "Locais";
+            case WEATHER:
+                return "Tempo";
+        }
+        return null;
     }
 
     @Override
@@ -69,4 +82,5 @@ public class PlacesPageAdapter extends FragmentPagerAdapter{
         if (weatherFragment != null)
             weatherFragment.updateWeatherDetail(mPlace);
     }
+
 }
