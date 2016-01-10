@@ -1,6 +1,5 @@
 package com.br.openweatherabacomm.utils;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class WeatherParams {
     }
 
     public static class Weather {
-        @JsonProperty("id")
+        @SerializedName("id")
         public int code;
         public String icon;
     }
@@ -61,7 +60,7 @@ public class WeatherParams {
 
     public static class Wind {
         public double speed;
-        @JsonProperty("deg")
+        @SerializedName("deg")
         public double degree;
     }
 }
