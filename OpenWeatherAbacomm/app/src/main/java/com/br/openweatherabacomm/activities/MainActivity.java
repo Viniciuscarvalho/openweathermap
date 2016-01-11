@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity
     private WeatherFragment weatherFragment;
     private TabsAdapter pagerAdapter;
 
+    private PlaceParcelable mPlaceParcel;
+    private WeatherParcelable mWeatherParcel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +47,9 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
     private void loadListCities() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, PlaceFragment.newInstance())
+                .replace(R.id.fragment_container, PlaceFragment.newInstance(mPlaceParcel))
                 .commit();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, WeatherFragment.newInstance())

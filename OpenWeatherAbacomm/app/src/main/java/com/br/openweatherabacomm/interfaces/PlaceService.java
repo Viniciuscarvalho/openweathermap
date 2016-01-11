@@ -14,7 +14,7 @@ import retrofit.http.Query;
  */
 public interface PlaceService {
     @GET("group?id={id}&units=metric&appid={appid}")
-        Call<List<WeatherListData>> listPlaces(@Path("id") int id,
-                                          @Path("appid") String appId);
+        Call<List<WeatherListData>> listPlaces(@Query("id") long id,
+                                          @Query("appid") String appId);
 
 }

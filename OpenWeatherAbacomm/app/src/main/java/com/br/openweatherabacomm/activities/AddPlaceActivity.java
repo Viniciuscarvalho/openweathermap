@@ -27,6 +27,7 @@ public class AddPlaceActivity extends AppCompatActivity {
     private static final String ARG_PLACES = "places";
 
     private ArrayList<PlaceParcelable> mPlaces = new ArrayList<>();
+    private PlaceParcelable mPlaceParcel;
     private LatLng mLatLng;
 
     public AddPlaceActivity(ArrayList<PlaceParcelable> mPlaces) {
@@ -82,7 +83,7 @@ public class AddPlaceActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceFragment.newInstance())
+                .replace(R.id.container, PlaceFragment.newInstance(mPlaceParcel))
                 .commit();
     }
 

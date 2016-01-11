@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.br.openweatherabacomm.fragments.PlaceFragment;
 import com.br.openweatherabacomm.fragments.WeatherFragment;
 import com.br.openweatherabacomm.parcelables.PlaceParcelable;
+import com.br.openweatherabacomm.parcelables.WeatherParcelable;
 
 /**
  * Created by viniciuscarvalho on 10/01/16.
@@ -20,6 +21,9 @@ public class TabsAdapter extends FragmentPagerAdapter{
     private PlaceFragment placesFragment;
     private WeatherFragment weatherFragment;
 
+    private PlaceParcelable mPlaceParcel;
+    private WeatherParcelable mWeatherParcel;
+
     public TabsAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
 
@@ -29,7 +33,7 @@ public class TabsAdapter extends FragmentPagerAdapter{
     public Fragment getItem (int position) {
         switch (position) {
             case PLACES:
-                return PlaceFragment.newInstance();
+                return PlaceFragment.newInstance(mPlaceParcel);
             case WEATHER:
                 return WeatherFragment.newInstance();
         }

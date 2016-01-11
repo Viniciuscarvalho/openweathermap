@@ -20,7 +20,6 @@ import com.br.openweatherabacomm.adapters.PlaceAdapter;
 import com.br.openweatherabacomm.interfaces.PlaceService;
 import com.br.openweatherabacomm.parcelables.PlaceParcelable;
 import com.br.openweatherabacomm.utils.WeatherListData;
-import com.google.android.gms.location.places.Place;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -33,17 +32,15 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-
 public class PlaceFragment extends Fragment {
 
     private static final String ARG_PLACES = "places";
     SearchView searchView;
 
     private RecyclerView mRecyclerView;
-    private Button mButton;
     private PlaceAdapter mAdapter;
     private WeatherListData weatherListData;
-    private ArrayList<PlaceParcelable> mPlaces = new ArrayList<>();
+    private PlaceParcelable mPlaceParcel;
     private List<WeatherListData> mWeatherList = new ArrayList<>();
 
     private PlaceInteractionListener mPlaceListener;
@@ -51,7 +48,11 @@ public class PlaceFragment extends Fragment {
     public PlaceFragment() {
     }
 
-    public static PlaceFragment newInstance() {
+    public static PlaceFragment newInstance(PlaceParcelable mPlaceParcel) {
+        PlaceFragment fragment = new PlaceFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_PLACES, mPlaceParcel);
+        fragment.setArguments(args);
         return new PlaceFragment();
     }
 
@@ -59,7 +60,9 @@ public class PlaceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            mPlaceParcel = getArguments().getParcelable(ARG_PLACES);
+        } else if (savedInstanceState != null) {
+            mPlaceParcel = savedInstanceState.getParcelable(ARG_PLACES);
         }
     }
 
@@ -107,7 +110,7 @@ public class PlaceFragment extends Fragment {
 
 
         PlaceService service = retrofit.create(PlaceService.class);
-        Call<List<WeatherListData>> placesCall = service.listPlaces(2643743, "2de143494c0b295cca9337e1e96b00e0");
+        Call<List<WeatherListData>> placesCall = service.listPlaces(mPlaceParcel.getId(), "2de143494c0b295cca9337e1e96b00e0");
         placesCall.enqueue(new Callback<List<WeatherListData>>() {
             @Override
             public void onResponse(Response<List<WeatherListData>> response, Retrofit retrofit) {
