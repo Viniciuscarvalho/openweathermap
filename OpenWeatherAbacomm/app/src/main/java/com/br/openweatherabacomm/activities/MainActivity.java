@@ -40,15 +40,10 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.fragment_container, TabsFragment.newInstance())
                 .commit();
 
-        //loadView();
+        loadListCities();
 
     }
 
-    private void loadView() {
-        if (ListCity()) {
-            loadListCities();
-        }
-    }
 
     private void loadListCities() {
         getSupportFragmentManager().beginTransaction()

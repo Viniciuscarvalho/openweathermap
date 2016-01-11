@@ -27,7 +27,10 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Call;
+import retrofit.Callback;
 import retrofit.GsonConverterFactory;
+import retrofit.Response;
 import retrofit.Retrofit;
 
 
@@ -41,6 +44,7 @@ public class PlaceFragment extends Fragment {
     private PlaceAdapter mAdapter;
     private WeatherListData weatherListData;
     private ArrayList<PlaceParcelable> mPlaces = new ArrayList<>();
+    private List<WeatherListData> mWeatherList = new ArrayList<>();
 
     private PlaceInteractionListener mPlaceListener;
 
@@ -102,20 +106,21 @@ public class PlaceFragment extends Fragment {
                 .build();
 
 
-//        PlaceService service = retrofit.create(PlaceService.class);
-//        Call<List<WeatherListData>> placesCall = service.listPlaces();
-//        placesCall.enqueue(new Callback<List<WeatherListData>>() {
-//            @Override
-//            public void onResponse(Response<List<WeatherListData>> response, Retrofit retrofit) {
-//                mPlaces.clear();
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable t) {
-//
-//            }
-//        });
+        PlaceService service = retrofit.create(PlaceService.class);
+        Call<List<WeatherListData>> placesCall = service.listPlaces(2643743, "2de143494c0b295cca9337e1e96b00e0");
+        placesCall.enqueue(new Callback<List<WeatherListData>>() {
+            @Override
+            public void onResponse(Response<List<WeatherListData>> response, Retrofit retrofit) {
+                mWeatherList = response.body();
+                System.out.println(mWeatherList.size());
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
     }
 
 
