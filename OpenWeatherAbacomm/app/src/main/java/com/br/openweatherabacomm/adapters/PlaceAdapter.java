@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.br.openweatherabacomm.R;
 import com.br.openweatherabacomm.parcelables.PlaceParcelable;
+import com.br.openweatherabacomm.parcelables.WeatherParcelable;
 import com.br.openweatherabacomm.utils.WeatherListData;
 import com.squareup.picasso.Picasso;
 
@@ -24,6 +25,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     private Context mContext;
     private View.OnClickListener mListener;
+    private WeatherParcelable mWeather;
+    private PlaceParcelable mPlace;
     private ArrayList<PlaceParcelable> mPlaces = new ArrayList<>();
 
     public PlaceAdapter(List<PlaceParcelable> placeList) {
@@ -51,10 +54,11 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     }
 
     public PlaceAdapter(Context context, View.OnClickListener listener,
-                        ArrayList<PlaceParcelable> placesList) {
+                        WeatherParcelable weather, PlaceParcelable place) {
         mContext = context;
         mListener = listener;
-        mPlaces = placesList;
+        mPlace = place;
+        mWeather = weather;
     }
 
     @Override
