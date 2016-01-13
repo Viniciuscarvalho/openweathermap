@@ -2,7 +2,7 @@
     <string name="app_name">Open Weather</string>
     <string name="app_id">539499042872525</string>
     <string name="google_maps_key">AIzaSyDubYPmdZ3MEtVMFDDAnjenhK4bz3AXlfE</string>
-    <string name="web_services">http://api.openweathermap.org/data/2.5/</string>
+    <string name="web_services">http://api.openweathermap.org</string>
 
     <string name="description_login_background">Login background image</string>
 

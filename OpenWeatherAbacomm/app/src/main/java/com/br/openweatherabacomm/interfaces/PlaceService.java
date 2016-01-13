@@ -13,8 +13,9 @@ import retrofit.http.Query;
  * Created by viniciuscarvalho on 30/12/15.
  */
 public interface PlaceService {
-    @GET("group?id={id}&units=metric&appid={appid}")
-        Call<List<WeatherListData>> listPlaces(@Query("id") long id,
-                                          @Query("appid") String appId);
+    @GET("data/2.5/group?")
+    Call<String> listPlaces(@Query("id") long id,
+                            @Query("units") String metric,
+                            @Query("appid") String appId);
 
 }

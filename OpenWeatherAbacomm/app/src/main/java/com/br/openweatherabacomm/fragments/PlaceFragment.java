@@ -19,6 +19,7 @@ import com.br.openweatherabacomm.activities.AddPlaceActivity;
 import com.br.openweatherabacomm.adapters.PlaceAdapter;
 import com.br.openweatherabacomm.interfaces.PlaceService;
 import com.br.openweatherabacomm.parcelables.PlaceParcelable;
+import com.br.openweatherabacomm.utils.ToStringConverterFactory;
 import com.br.openweatherabacomm.utils.WeatherListData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -105,17 +106,23 @@ public class PlaceFragment extends Fragment {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.web_services))
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .addConverterFactory(ToStringConverterFactory.create())
                 .build();
 
-
         PlaceService service = retrofit.create(PlaceService.class);
-        Call<List<WeatherListData>> placesCall = service.listPlaces(mPlaceParcel.getId(), "2de143494c0b295cca9337e1e96b00e0");
-        placesCall.enqueue(new Callback<List<WeatherListData>>() {
+        Call<String> placesCall = service.listPlaces(524901, "metric", "2de143494c0b295cca9337e1e96b00e0");
+
+        placesCall.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Response<List<WeatherListData>> response, Retrofit retrofit) {
-                mWeatherList = response.body();
-                System.out.println(mWeatherList.size());
+            public void onResponse(Response<String> response, Retrofit retrofit) {
+
+                if (response.body() != null){
+                    WeatherListData weatherListData = new Gson().fromJson(response.body(), WeatherListData.class);
+
+                    if (weatherListData != null){
+
+                    }
+                }
 
             }
 
@@ -125,6 +132,38 @@ public class PlaceFragment extends Fragment {
             }
         });
     }
+
+//    private void teste(){
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://api.openweathermap.org")
+//                .addConverterFactory(ToStringConverterFactory.create())
+//                .build();
+//
+//        Foursquare.PlaceService service = retrofit.create(Foursquare.PlaceService.class);
+//        Call<String> placesCall = service.listPlaces(524901, "metric", "2de143494c0b295cca9337e1e96b00e0");
+//
+//        placesCall.enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Response<String> response, Retrofit retrofit) {
+//
+//                if (response.body() != null){
+//                    WeatherListData weatherListData = new Gson().fromJson(response.body(), WeatherListData.class);
+//
+//                    if (weatherListData != null){
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                if (t != null){
+//
+//                }
+//            }
+//        });
+//    }
 
 
     public void onButtonPressed(Uri uri) {
