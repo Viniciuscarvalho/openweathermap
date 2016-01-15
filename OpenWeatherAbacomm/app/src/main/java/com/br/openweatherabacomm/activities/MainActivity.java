@@ -85,14 +85,14 @@ public class MainActivity extends AppCompatActivity
 
 
                 //placeFragment.delete();
-
-                if (ListCity()) {
-                    placesFragment.updatePlacesList();
-                    //weatherFragment.updateWeatherDetail();
-                } else {
-                    pagerAdapter.updatePlacesList();
-                    //pagerAdapter.updateWeatherDetail();
-                }
+//
+//                if (ListCity()) {
+//                    placesFragment.updatePlacesList();
+//                    weatherFragment.updateWeatherDetail();
+//                } else {
+//                    pagerAdapter.updatePlacesList();
+//                    pagerAdapter.updateWeatherDetail();
+//                }
             }
         });
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Não", new DialogInterface.OnClickListener() {

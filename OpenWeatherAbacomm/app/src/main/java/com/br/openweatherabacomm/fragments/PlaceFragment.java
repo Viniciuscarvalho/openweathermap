@@ -21,6 +21,7 @@ import com.br.openweatherabacomm.interfaces.PlaceService;
 import com.br.openweatherabacomm.parcelables.PlaceParcelable;
 import com.br.openweatherabacomm.utils.ToStringConverterFactory;
 import com.br.openweatherabacomm.utils.WeatherListData;
+import com.br.openweatherabacomm.utils.WeatherParams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -39,10 +40,9 @@ public class PlaceFragment extends Fragment {
     SearchView searchView;
 
     private RecyclerView mRecyclerView;
-    private PlaceAdapter mAdapter;
-    private WeatherListData weatherListData;
+    private PlaceAdapter mPlaceAdapter;
     private PlaceParcelable mPlaceParcel;
-    private List<WeatherListData> mWeatherList = new ArrayList<>();
+    private ArrayList<PlaceParcelable> places = new ArrayList<>();
 
     private PlaceInteractionListener mPlaceListener;
 
@@ -65,6 +65,9 @@ public class PlaceFragment extends Fragment {
         } else if (savedInstanceState != null) {
             mPlaceParcel = savedInstanceState.getParcelable(ARG_PLACES);
         }
+
+        mPlaceAdapter = new PlaceAdapter(places, getContext(), onClickPlace());
+        mRecyclerView.setAdapter(mPlaceAdapter);
     }
 
     @Override
@@ -83,24 +86,24 @@ public class PlaceFragment extends Fragment {
         return view;
     }
 
-    public void updatePlacesList() {
-        String filter = "";
-
-        if (searchView != null) {
-            filter = searchView.getQuery().toString();
-        }
-
-        updatePlacesList(PlaceParcelable.filterByCity(filter));
-    }
-
-    private void updatePlacesList(List<PlaceParcelable> placeList) {
-        if (placeList.size() > 0) {
-            mRecyclerView.setAdapter(new PlaceAdapter(placeList));
-        } else {
-            mRecyclerView.setAdapter(null);
-
-        }
-    }
+//    public void updatePlacesList() {
+//        String filter = "";
+//
+//        if (searchView != null) {
+//            filter = searchView.getQuery().toString();
+//        }
+//
+//        updatePlacesList(PlaceParcelable.filterByCity(filter));
+//    }
+//
+//    private void updatePlacesList(List<PlaceParcelable> mPlaces) {
+//        if (mPlaces.size() > 0) {
+//            mRecyclerView.setAdapter(new PlaceAdapter(mPlaces, getContext(), ));
+//        } else {
+//            mRecyclerView.setAdapter(null);
+//
+//        }
+//    }
 
     private void refreshList() {
 
@@ -133,43 +136,14 @@ public class PlaceFragment extends Fragment {
         });
     }
 
-//    private void teste(){
-//
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://api.openweathermap.org")
-//                .addConverterFactory(ToStringConverterFactory.create())
-//                .build();
-//
-//        Foursquare.PlaceService service = retrofit.create(Foursquare.PlaceService.class);
-//        Call<String> placesCall = service.listPlaces(524901, "metric", "2de143494c0b295cca9337e1e96b00e0");
-//
-//        placesCall.enqueue(new Callback<String>() {
-//            @Override
-//            public void onResponse(Response<String> response, Retrofit retrofit) {
-//
-//                if (response.body() != null){
-//                    WeatherListData weatherListData = new Gson().fromJson(response.body(), WeatherListData.class);
-//
-//                    if (weatherListData != null){
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable t) {
-//                if (t != null){
-//
-//                }
-//            }
-//        });
-//    }
+    private PlaceAdapter.PlaceOnClickListener onClickPlace() {
+        return new PlaceAdapter.PlaceOnClickListener() {
+            @Override
+            public void onClickPlace(View view, int owId) {
+                PlaceParcelable place = places.get(owId);
+            }
+        };
 
-
-    public void onButtonPressed(Uri uri) {
-        if (mPlaceListener != null) {
-            mPlaceListener.PlaceFragmentInteraction(uri);
-        }
     }
 
     public interface PlaceInteractionListener {

@@ -72,10 +72,10 @@ public class TabsAdapter extends FragmentPagerAdapter{
         super.destroyItem(container, position, object);
     }
 
-    public void updatePlacesList() {
-        if (placesFragment != null)
-            placesFragment.updatePlacesList();
-    }
+//    public void updatePlacesList() {
+//        if (placesFragment != null)
+//            placesFragment.updatePlacesList();
+//    }
 
 //    public void updateWeatherDetail() {
 //        if (weatherFragment != null)
